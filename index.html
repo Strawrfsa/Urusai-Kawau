@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urusai Kawau | うるさいカワウソ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: #f5f0e8;
+            color: #4a3728;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Cartoon decorative elements */
+        .floating-doodles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .doodle {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.1;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .doodle:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+        .doodle:nth-child(2) { top: 20%; left: 85%; animation-delay: 2s; }
+        .doodle:nth-child(3) { top: 70%; left: 10%; animation-delay: 4s; }
+        .doodle:nth-child(4) { top: 60%; left: 90%; animation-delay: 6s; }
+        .doodle:nth-child(5) { top: 40%; left: 3%; animation-delay: 1s; }
+        .doodle:nth-child(6) { top: 80%; left: 75%; animation-delay: 3s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(5deg); }
+            50% { transform: translateY(-30px) rotate(-5deg); }
+            75% { transform: translateY(-15px) rotate(3deg); }
+        }
+
+        /* Header */
+        header {
+            background: #fff;
+            padding: 15px 0;
+            border-bottom: 4px solid #d4b896;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #8b6914;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-btn {
+            background: #d4b896;
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 0 #b8a082;
+            position: relative;
+            top: 0;
+        }
+
+        .social-btn:hover {
+            background: #c4a886;
+            top: 2px;
+            box-shadow: 0 2px 0 #b8a082;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 120px;
+            background: linear-gradient(135deg, #f5f0e8 0%, #ede4d3 50%, #e8dcc6 100%);
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="%23d4b896" opacity="0.3"/><circle cx="80" cy="40" r="1.5" fill="%23c4a886" opacity="0.4"/><circle cx="40" cy="70" r="1" fill="%23b8a082" opacity="0.3"/><circle cx="90" cy="80" r="2.5" fill="%23d4b896" opacity="0.2"/></svg>') repeat;
+            animation: drift 20s linear infinite;
+        }
+
+        @keyframes drift {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-100px) translateY(-100px); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 15px;
+            color: #8b6914;
+            text-shadow: 3px 3px 0px #d4b896;
+            transform: rotate(-2deg);
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) rotate(-2deg); }
+            40% { transform: translateY(-10px) rotate(-1deg); }
+            60% { transform: translateY(-5px) rotate(-2.5deg); }
+        }
+
+        .japanese-text {
+            font-size: 2.5rem;
+            color: #a67c00;
+            margin: 20px 0;
+            transform: rotate(1deg);
+            text-shadow: 2px 2px 0px #d4b896;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #6b4e3d;
+            margin-bottom: 30px;
+            background: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border: 3px solid #d4b896;
+            transform: rotate(-1deg);
+        }
+
+        .character-showcase {
+            margin: 50px 0;
+            position: relative;
+        }
+
+        .character-frame {
+            width: 350px;
+            height: 350px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 50%;
+            border: 8px solid #d4b896;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            animation: wiggle 4s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(1deg); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(-1deg); }
+        }
+
+        .character-frame::before {
+            content: '★';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            font-size: 2rem;
+            color: #8b6914;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .character-frame::after {
+            content: '★';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 2rem;
+            color: #8b6914;
+            animation: sparkle 2s ease-in-out infinite reverse;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 0.7; }
+        }
+
+        .character-image {
+            font-size: 8rem;
+            filter: sepia(20%);
+        }
+
+        /* Comic Speech Bubbles */
+        .speech-bubble {
+            position: absolute;
+            background: #fff;
+            border: 4px solid #d4b896;
+            border-radius: 20px;
+            padding: 15px 25px;
+            font-weight: bold;
+            color: #4a3728;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .bubble-1 {
+            top: 20%;
+            left: -100px;
+            transform: rotate(-5deg);
+            animation: pop 3s ease-in-out infinite;
+        }
+
+        .bubble-2 {
+            top: 30%;
+            right: -120px;
+            transform: rotate(5deg);
+            animation: pop 3s ease-in-out infinite 1.5s;
+        }
+
+        @keyframes pop {
+            0%, 100% { transform: scale(1) rotate(-5deg); }
+            50% { transform: scale(1.1) rotate(-3deg); }
+        }
+
+        .bubble-1::after, .bubble-2::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-right: 4px solid #d4b896;
+            border-bottom: 4px solid #d4b896;
+            transform: rotate(45deg);
+        }
+
+        .bubble-1::after {
+            bottom: -10px;
+            left: 30px;
+        }
+
+        .bubble-2::after {
+            bottom: -10px;
+            right: 30px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: #fff;
+            position: relative;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: repeating-linear-gradient(
+                45deg,
+                #d4b896,
+                #d4b896 10px,
+                #c4a886 10px,
+                #c4a886 20px
+            );
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            color: #8b6914;
+            margin-bottom: 20px;
+            transform: rotate(-1deg);
+            text-shadow: 3px 3px 0px #d4b896;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: #f5f0e8;
+            padding: 40px;
+            border-radius: 25px;
+            border: 4px solid #d4b896;
+            position: relative;
+            transition: transform 0.3s ease;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) rotate(1deg);
+        }
+
+        .feature-card:nth-child(2) {
+            transform: rotate(-1deg);
+        }
+
+        .feature-card:nth-child(2):hover {
+            transform: translateY(-10px) rotate(-0.5deg);
+        }
+
+        .feature-card:nth-child(3) {
+            transform: rotate(0.5deg);
+        }
+
+        .feature-card:nth-child(3):hover {
+            transform: translateY(-10px) rotate(1deg);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+            text-align: center;
+        }
+
+        .feature-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #8b6914;
+            text-align: center;
+        }
+
+        .feature-card p {
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #e8dcc6 0%, #d4b896 100%);
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-title {
+            font-size: 3rem;
+            color: #4a3728;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 0px #fff;
+            transform: rotate(-1deg);
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .cta-button {
+            background: #8b6914;
+            color: #fff;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 0 #6b4e0a;
+            position: relative;
+            top: 0;
+            transform: rotate(-1deg);
+        }
+
+        .cta-button:nth-child(2) {
+            background: #a67c00;
+            box-shadow: 0 6px 0 #8b6914;
+            transform: rotate(1deg);
+        }
+
+        .cta-button:nth-child(3) {
+            background: #c4a886;
+            color: #4a3728;
+            box-shadow: 0 6px 0 #b8a082;
+            transform: rotate(-0.5deg);
+        }
+
+        .cta-button:hover {
+            top: 3px;
+            box-shadow: 0 3px 0 #6b4e0a;
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .japanese-text {
+                font-size: 2rem;
+            }
+            
+            .character-frame {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .character-image {
+                font-size: 5rem;
+            }
+            
+            .bubble-1, .bubble-2 {
+                display: none;
+            }
+            
+            .social-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-doodles">
+        <div class="doodle">🦦</div>
+        <div class="doodle">💭</div>
+        <div class="doodle">⭐</div>
+        <div class="doodle">🌟</div>
+        <div class="doodle">💫</div>
+        <div class="doodle">✨</div>
+    </div>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    🦦 Urusai Kawau
+                </div>
+                <div class="social-links">
+                    <a href="https://x.com/yukkurishiteya" target="_blank" class="social-btn">𝕏 Follow</a>
+                    <a href="https://x.com/i/communities/1962453523435565491/" target="_blank" class="social-btn">Community</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Urusai Kawau</h1>
+                <div class="japanese-text">うるさいカワウソ</div>
+                <div class="hero-subtitle">First Japanese Doge Derivative Going Viral! 🚀</div>
+                
+                <div class="character-showcase">
+                    <div class="character-frame">
+                        <div class="character-image">🦦</div>
+                        <div class="speech-bubble bubble-1">So Kawaii!</div>
+                        <div class="speech-bubble bubble-2">Much Urusai!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Kawau-chan?</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🇯🇵</span>
+                    <h3>Original Japanese Doge</h3>
+                    <p>The first ever Japanese derivative of the legendary Doge! Born from authentic Japanese meme culture and ready to conquer the world, desu!</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🔥</span>
+                    <h3>Viral Sensation</h3>
+                    <p>Already trending across Japanese social media! This little kawaii otter is making waves and stealing hearts everywhere he goes!</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">💎</span>
+                    <h3>Hidden Gem</h3>
+                    <p>Believe it or not, this viral character hasn't been tokenized yet! This is your chance to be part of something special from day one!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2 class="cta-title">Join the Kawau Family!</h2>
+            <p style="font-size: 1.3rem; margin-bottom: 20px; color: #4a3728;">Don't miss out on the cutest revolution in crypto! 🦦✨</p>
+            
+            <div class="cta-buttons">
+                <a href="https://x.com/yukkurishiteya" target="_blank" class="cta-button">Follow Kawau</a>
+                <a href="https://x.com/i/communities/1962453523435565491/" target="_blank" class="cta-button">Join Community</a>
+                <a href="#" class="cta-button">Buy $KAWAU</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate elements on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe feature cards
+            document.querySelectorAll('.feature-card').forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(50px)';
+                card.style.transition = `all 0.6s ease ${index * 0.2}s`;
+                observer.observe(card);
+            });
+
+            // Add click animations
+            document.querySelectorAll('.cta-button, .social-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(255,255,255,0.6)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    ripple.style.left = '50%';
+                    ripple.style.top = '50%';
+                    ripple.style.width = '20px';
+                    ripple.style.height = '20px';
+                    ripple.style.marginLeft = '-10px';
+                    ripple.style.marginTop = '-10px';
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+        });
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
