@@ -233,6 +233,9 @@
         .character-image {
             font-size: 8rem;
             filter: sepia(20%);
+            width: 280px;
+            height: 280px;
+            object-fit: contain;
         }
 
         /* Comic Speech Bubbles */
@@ -376,7 +379,67 @@
             line-height: 1.6;
         }
 
-        /* CTA Section */
+        /* CA Address Section */
+        .ca-section {
+            background: #fff;
+            padding: 60px 0;
+            border-top: 4px solid #d4b896;
+            border-bottom: 4px solid #d4b896;
+        }
+
+        .ca-container {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .ca-title {
+            font-size: 2.5rem;
+            color: #8b6914;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0px #d4b896;
+            transform: rotate(-1deg);
+        }
+
+        .ca-address {
+            background: #f5f0e8;
+            border: 4px solid #d4b896;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: #4a3728;
+            word-break: break-all;
+            position: relative;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .copy-btn {
+            background: #8b6914;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 0 #6b4e0a;
+            position: relative;
+            top: 0;
+            margin-top: 15px;
+        }
+
+        .copy-btn:hover {
+            background: #6b4e0a;
+            top: 2px;
+            box-shadow: 0 2px 0 #5a4209;
+        }
+
+        .copy-btn:active {
+            top: 4px;
+            box-shadow: none;
+        }
         .cta {
             padding: 100px 0;
             background: linear-gradient(135deg, #e8dcc6 0%, #d4b896 100%);
@@ -503,7 +566,7 @@
                 
                 <div class="character-showcase">
                     <div class="character-frame">
-                        <div class="character-image">🦦</div>
+                        <img src="logo.png" alt="Urusai Kawau" class="character-image">
                         <div class="speech-bubble bubble-1">So Kawaii!</div>
                         <div class="speech-bubble bubble-2">Much Urusai!</div>
                     </div>
@@ -538,6 +601,18 @@
         </div>
     </section>
 
+    <section class="ca-section">
+        <div class="container">
+            <div class="ca-container">
+                <h2 class="ca-title">Contract Address 📋</h2>
+                <div class="ca-address" id="contractAddress">
+                    EWm56Rs1jEHsAhqyzkrJRWfWAFZw7nNapyMpuV6Epump
+                </div>
+                <button class="copy-btn" onclick="copyCA()">📋 Copy CA</button>
+            </div>
+        </div>
+    </section>
+
     <section class="cta">
         <div class="container">
             <h2 class="cta-title">Join the Kawau Family!</h2>
@@ -552,6 +627,41 @@
     </section>
 
     <script>
+        // Copy CA function
+        function copyCA() {
+            const caText = document.getElementById('contractAddress').textContent;
+            navigator.clipboard.writeText(caText).then(function() {
+                const btn = document.querySelector('.copy-btn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✅ Copied!';
+                btn.style.background = '#4CAF50';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '#8b6914';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Could not copy text: ', err);
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = caText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                const btn = document.querySelector('.copy-btn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✅ Copied!';
+                btn.style.background = '#4CAF50';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '#8b6914';
+                }, 2000);
+            });
+        }
+
         // Add some interactive elements
         document.addEventListener('DOMContentLoaded', function() {
             // Animate elements on scroll
